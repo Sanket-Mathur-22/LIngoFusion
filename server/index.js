@@ -16,7 +16,7 @@ const YD = new YoutubeMp3Downloader({
   youtubeVideoQuality: 'highestaudio',
 });
 
-const deepgram = new Deepgram('619f2d888a2334964a6c0a9552ed547ac5bad27a'); // Replace with your Deepgram API key
+const deepgram = new Deepgram('980da6e1fc8b36201d08e762b537b863bd914337'); // Replace with your Deepgram API key
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -33,10 +33,11 @@ app.post('/transcribe', async (req, res) => {
     // Transcribe the downloaded MP3 using Deepgram
     const transcriptionResult = await transcribeAudio(videoFileName);
 
-    res.status(200).send(transcriptionResult.toWebVTT());
+    //res.status(200).send(transcriptionResult.results.channels[0].alternatives[0].transcript);
+    res.status(200).send(transcriptionResult.toSRT());
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error transcribing video.');
+    res.status(500).send('Error transcribing video');
   }
 });
 
